@@ -1,7 +1,5 @@
 package com.jhj.reflect;
 
-import android.util.Log;
-
 public class Animal {
 
     public int year;
@@ -14,7 +12,12 @@ public class Animal {
         this.name = name;
     }
 
-    private void info(int year) {
+    private void animalInfo(int year) {
         System.out.print("动物" + name + "今年" + year + "岁了");
+    }
+
+
+    public void animalName(int year) {
+        System.out.print("动物 -->" + name);
     }
 }
