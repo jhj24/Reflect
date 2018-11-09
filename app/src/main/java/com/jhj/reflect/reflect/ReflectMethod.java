@@ -1,5 +1,6 @@
 package com.jhj.reflect.reflect;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class ReflectMethod {
@@ -43,13 +44,30 @@ public class ReflectMethod {
      *
      * @param clazz Class<?>
      */
-    public static Method getMethod(Class<?> clazz, String MethodName) {
+    public static Method getMethod(Class<?> clazz, String MethodName, Class<?>... parameterTypes) {
         try {
-            return clazz.getMethod(MethodName);
+            return clazz.getMethod(MethodName, parameterTypes);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 方法调用
+     *
+     * @param method 要调用的方法
+     * @param obj    方法所在的对象
+     * @param params 值
+     */
+    public static void invoke(Method method, Object obj, Object... params) {
+        try {
+            method.invoke(obj, params);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
 }

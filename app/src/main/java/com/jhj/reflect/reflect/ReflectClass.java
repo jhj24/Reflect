@@ -4,11 +4,11 @@ public class ReflectClass {
 
 
     // 获取Class的三种方式
-    static Class<?> getClass(Class<?> clazz) {
+    public static Class<?> getClass(Class<?> clazz) {
         return clazz;
     }
 
-    static Class<?> getClass(String clazz) {
+    public static Class<?> getClass(String clazz) {
         try {
             return Class.forName(clazz);
         } catch (ClassNotFoundException e) {
@@ -18,8 +18,22 @@ public class ReflectClass {
     }
 
 
-    static <T> Class<?> getClass(T a) {
+    public static <T> Class<?> getClass(T a) {
         return a.getClass();
+    }
+
+
+    //=================================================
+
+    public static Object getInstance(Class<?> clazz) {
+        try {
+            return getClass(clazz).newInstance();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

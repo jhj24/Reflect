@@ -50,4 +50,21 @@ public class ReflectField {
         }
         return null;
     }
+
+    /***
+     * 字段调用
+     * @param field 要调用的字段
+     * @param obj 字段所在的对象
+     * @param value 修改值
+     */
+    public static void set(Field field, Object obj, Object value) {
+        try {
+            field.set(obj, value);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 }

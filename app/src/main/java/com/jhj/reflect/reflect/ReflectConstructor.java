@@ -52,4 +52,9 @@ public class ReflectConstructor {
         return null;
     }
 
+
+    //调用
+    //clazz.getConstructor(parameterTypes).newInstance(params);
+
+
 }

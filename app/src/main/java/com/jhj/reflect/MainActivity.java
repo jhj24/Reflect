@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.jhj.reflect.annotation.LimitAge;
 import com.jhj.reflect.reflect.ReflectAnnotation;
+import com.jhj.reflect.reflect.ReflectClass;
 import com.jhj.reflect.reflect.ReflectConstructor;
 import com.jhj.reflect.reflect.ReflectField;
 import com.jhj.reflect.reflect.ReflectMethod;
@@ -14,6 +15,7 @@ import com.jhj.reflect.reflect.ReflectMethod;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class MainActivity extends AppCompatActivity {
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                                 Constructor<?>[] constructors = ReflectConstructor.getConstructors(Animal.class);
                                 builder = new StringBuilder();
                                 for (Constructor<?> constructor : constructors) {
-                                    builder.append(constructor.getName()).append("\n");
+                                    builder.append(constructor.toString()).append("\n");
                                 }
                                 setText(builder);
                                 break;
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                                 Field[] fields = ReflectField.getFields(Animal.class);
                                 builder = new StringBuilder();
                                 for (Field field : fields) {
-                                    builder.append(field.getName()).append("\n");
+                                    builder.append(field.toString()).append("\n");
                                 }
                                 setText(builder);
                                 break;
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                                 Method[] methods = ReflectMethod.getMethods(Animal.class);
                                 builder = new StringBuilder();
                                 for (Method method : methods) {
-                                    builder.append(method.getName()).append("\n");
+                                    builder.append(method.toString()).append("\n");
                                 }
                                 setText(builder);
                                 break;
@@ -93,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                                 Annotation[] annotations = ReflectAnnotation.getAnnotations(Animal.class);
                                 builder = new StringBuilder();
                                 for (Annotation annotation : annotations) {
-                                    builder.append(annotation.getClass().getName()).append("\n");
+                                    builder.append(annotation.getClass().toString()).append("\n");
                                 }
                                 setText(builder);
                                 break;
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                                 Constructor<?>[] constructors = ReflectConstructor.getDeclaredConstructors(Animal.class);
                                 builder = new StringBuilder();
                                 for (Constructor<?> constructor : constructors) {
-                                    builder.append(constructor.getName()).append("\n");
+                                    builder.append(constructor.toString()).append("\n");
                                 }
                                 setText(builder);
                                 break;
@@ -114,22 +116,24 @@ public class MainActivity extends AppCompatActivity {
                                 Field[] fields = ReflectField.getDeclaredFields(Animal.class);
                                 builder = new StringBuilder();
                                 for (Field field : fields) {
-                                    builder.append(field.getName()).append("\n");
+                                    builder.append(field.toString()).append("\n");
                                 }
+                                setText(builder);
                                 break;
                             case 3:
                                 Method[] methods = ReflectMethod.getDeclaredMethods(Animal.class);
                                 builder = new StringBuilder();
                                 for (Method method : methods) {
-                                    builder.append(method.getName()).append("\n");
+                                    builder.append(method.toString()).append("\n");
                                 }
+                                setText(builder);
                                 break;
 
                             case 4:
                                 Annotation[] annotations = ReflectAnnotation.getDeclaredAnnotations(Animal.class);
                                 builder = new StringBuilder();
                                 for (Annotation annotation : annotations) {
-                                    builder.append(annotation.getClass().getName()).append("\n");
+                                    builder.append(annotation.getClass().toString()).append("\n");
                                 }
                                 setText(builder);
                                 break;
@@ -142,26 +146,34 @@ public class MainActivity extends AppCompatActivity {
                             case 1:
                                 Constructor<?> constructor = ReflectConstructor.getConstructor(Animal.class);
                                 if (constructor != null) {
-                                    setText(constructor.getName());
+                                    setText(constructor.toString());
                                 }
                                 break;
                             case 2:
-                                Field field = ReflectField.getField(Animal.class, "");
+                                Field field = ReflectField.getField(Animal.class, "name");
                                 if (field != null) {
-                                    setText(field.getName());
+                                    setText(field.toString());
                                 }
                                 break;
                             case 3:
-                                Method method = ReflectMethod.getMethod(Animal.class, "");
+                                Method method = ReflectMethod.getMethod(Animal.class, "animalInfo", int.class);
                                 if (method != null) {
-                                    setText(method.getName());
+                                    setText(method.toString());
+                                    try {
+                                        method.invoke(ReflectClass.getInstance(Animal.class), 1);
+                                    } catch (IllegalAccessException e) {
+                                        e.printStackTrace();
+                                    } catch (InvocationTargetException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
+
                                 break;
 
                             case 4:
                                 Annotation annotation = ReflectAnnotation.getAnnotation(Animal.class, LimitAge.class);
-                                if (annotation != null){
-                                    setText(annotation.getClass().getName());
+                                if (annotation != null) {
+                                    setText(annotation.getClass().toString());
                                 }
                                 break;
                         }
@@ -173,19 +185,19 @@ public class MainActivity extends AppCompatActivity {
                             case 1:
                                 Constructor<?> constructor = ReflectConstructor.getDeclaredConstructor(Animal.class);
                                 if (constructor != null) {
-                                    setText(constructor.getName());
+                                    setText(constructor.toString());
                                 }
                                 break;
                             case 2:
                                 Field field = ReflectField.getDeclaredField(Animal.class, "");
                                 if (field != null) {
-                                    setText(field.getName());
+                                    setText(field.toString());
                                 }
                                 break;
                             case 3:
                                 Method method = ReflectMethod.getDeclaredMethod(Animal.class, "");
                                 if (method != null) {
-                                    setText(method.getName());
+                                    setText(method.toString());
                                 }
                                 break;
 

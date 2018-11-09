@@ -2,8 +2,8 @@ package com.jhj.reflect;
 
 public class Animal {
 
-    public int year;
     public String name;
+    private int year;
 
     public Animal() {
     }
@@ -12,7 +12,12 @@ public class Animal {
         this.name = name;
     }
 
-    private void animalInfo(int year) {
+    private Animal(String name, int year) {
+        this.name = name;
+        this.year = year;
+    }
+
+    public void animalInfo(int year) {
         System.out.print("动物" + name + "今年" + year + "岁了");
     }
 
